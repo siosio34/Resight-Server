@@ -1,5 +1,4 @@
 from resightserver import db_instance
-db_instance.create_all()
 
 class Store(db_instance.Model):
     id = db_instance.Column(db_instance.Integer, primary_key=True)
@@ -19,8 +18,14 @@ class Store(db_instance.Model):
         return {x.name: getattr(self, x.name) for x in self.__table__columns}
 
     def add_database(self):
-        db_instance.session.add(self)
-        db_instance.session.commit()
+        try:
+            db_instance.session.add(self)
+            db_instance.session.commit()
+        except:
+            db_instance.session.rollback()
+            raise
+        finally:
+            db_instance.session.close()
         stores = Store.query.all()
         print(stores)
 
