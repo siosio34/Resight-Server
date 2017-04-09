@@ -1,6 +1,8 @@
 from resightserver import db_instance
+import json
 
 class Store(db_instance.Model):
+    __tablename__ = 'Store'
     id = db_instance.Column(db_instance.Integer, primary_key=True)
     app_name = db_instance.Column(db_instance.String(50), unique=True)
     app_store_link = db_instance.Column(db_instance.String(50), unique=True)
@@ -12,7 +14,8 @@ class Store(db_instance.Model):
         self.app_image_link = app_image_link
 
     def __repr__(self):
-        return '<User %r>' % self.app_name
+        return json.dumps({"app_name": self.app_name, "app_store_link" : self.app_store_link,
+            "app_image_link" : self.app_image_link })
 
     def as_dict(self):
         return {x.name: getattr(self, x.name) for x in self.__table__columns}
@@ -26,8 +29,6 @@ class Store(db_instance.Model):
             raise
         finally:
             db_instance.session.close()
-        stores = Store.query.all()
-        print(stores)
 
 
 
