@@ -4,4 +4,6 @@ from app import app
 
 def initialize_controller():
     from app.Controller.AppStoreController import appStoreBluePrint
+    from app.Controller.HandLearningController import handLearnBluePrint
     app.register_blueprint(appStoreBluePrint)
+    app.register_blueprint(handLearnBluePrint)
