@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.Models.SensorDataModel import SensorData
+#from app.Models.SensorDataModel import SensorData
 
 sensorDataBluePrint = Blueprint('sensorDataBluePrint', __name__)
 
@@ -23,27 +23,27 @@ def save_data_text_file():
         return jsonify("result", "success")
 
 
-@sensorDataBluePrint.route("/api/save_mysql", methods=['GET', 'POST'])
-def save_data_mysql():
-    data = request.get_json()
-    print(data)
-
-    if request.method == 'GET':
-        sensor_data_list = SensorData.query.all()
-        print('---------------')
-        print(sensor_data_list)
-        print('---------------')
-        return sensor_data_list
-
-    elif request.method == 'POST':
-        result = request.get_json()
-        print(result)
-        user_id = result['userId']
-        motion_code = result['motionCode']
-        muscle_data = result['Muscledatas']
-        store_ins = SensorData(user_id, motion_code, muscle_data)
-        store_ins.add_database()
-        return 'post'
+#@sensorDataBluePrint.route("/api/save_mysql", methods=['GET', 'POST'])
+#def save_data_mysql():
+#    data = request.get_json()
+#    print(data)
+#
+#    if request.method == 'GET':
+#        sensor_data_list = SensorData.query.all()
+#        print('---------------')
+#        print(sensor_data_list)
+#        print('---------------')
+#        return sensor_data_list
+#
+#    elif request.method == 'POST':
+#        result = request.get_json()
+#        print(result)
+#        user_id = result['userId']
+#        motion_code = result['motionCode']
+#        muscle_data = result['Muscledatas']
+#        store_ins = SensorData(user_id, motion_code, muscle_data)
+#        store_ins.add_database()
+#        return 'post'
 
 
 
