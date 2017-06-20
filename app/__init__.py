@@ -3,8 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-#app.config.from_object('app.config')
-#db_instance = SQLAlchemy(app)
+app.config.from_object('app.config')
+db_instance = SQLAlchemy(app)
 
 
 @app.before_request
